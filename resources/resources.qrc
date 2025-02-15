@@ -1,0 +1,19 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/icons">
+        <file>icons/usb.png</file>
+        <file>icons/refresh.png</file>
+        <file>icons/settings.png</file>
+        <file>icons/security.png</file>
+        <file>icons/power.png</file>
+        <file>icons/benchmark.png</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file>styles/dark.qss</file>
+        <file>styles/light.qss</file>
+    </qresource>
+    <qresource prefix="/config">
+        <file>config/known_devices.json</file>
+        <file>config/security_rules.json</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "devices": [
+    {
+      "vendorId": "0x0483",
+      "productId": "0x5740",
+      "name": "STM32 USB Device",
+      "class": "CDC",
+      "trusted": true
+    }
+  ]
+}

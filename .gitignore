@@ -1,0 +1,33 @@
+# Build directories
+build/
+cmake-build-*/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Compiled files
+*.o
+*.so
+*.a
+*.lib
+*.dll
+moc_*
+ui_*
+qrc_*
+
+# Generated documentation
+docs/html/
+docs/latex/
+
+# Database files
+*.db
+*.sqlite
+
+# Log files
+*.log
+
+# Config backups
+*.bak

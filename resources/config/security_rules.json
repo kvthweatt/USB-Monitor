@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "rules": [
+    {
+      "name": "Block Mass Storage",
+      "condition": {
+        "deviceClass": "08",
+        "action": "block",
+        "notification": "Mass storage devices are restricted"
+      }
+    }
+  ]
+}
