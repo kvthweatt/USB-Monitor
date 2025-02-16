@@ -1,7 +1,7 @@
 // tests/test_DeviceManager.cpp
 #include <gtest/gtest.h>
-#include "DeviceManager.hpp"
-#include "UsbDevice.hpp"
+#include "../core/DeviceManager.hpp"
+#include "../core/UsbDevice.hpp"
 #include <QCoreApplication>
 #include <memory>
 

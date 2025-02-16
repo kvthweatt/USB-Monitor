@@ -1,6 +1,6 @@
 // tests/test_UsbDevice.cpp
 #include <gtest/gtest.h>
-#include "UsbDevice.hpp"
+#include "../src/core/UsbDevice.hpp"
 
 namespace usb_monitor {
 namespace testing {

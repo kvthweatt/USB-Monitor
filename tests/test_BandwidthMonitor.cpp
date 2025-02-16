@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "BandwidthMonitor.hpp"
+#include "../core/BandwidthMonitor.hpp"
 
 namespace usb_monitor {
 namespace testing {

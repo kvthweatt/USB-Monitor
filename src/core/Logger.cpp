@@ -8,6 +8,10 @@
 #include <fstream>
 #include <filesystem>
 #include <iomanip>
+#include <iostream>
+#ifdef Q_OS_LINUX
+#include <syslog.h>
+#endif
 
 namespace usb_monitor {
 

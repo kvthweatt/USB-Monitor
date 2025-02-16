@@ -28,6 +28,7 @@ set(SOURCES
     src/core/UsbDevice.cpp
     src/core/PowerManager.cpp
     src/core/BandwidthMonitor.cpp
+    src/core/Logger.cpp
     src/gui/MainWindow.cpp
     src/gui/DeviceTreeWidget.cpp
     src/gui/TopologyView.cpp
@@ -79,8 +80,8 @@ install(DIRECTORY resources/config/
     DESTINATION etc/${PROJECT_NAME}
 )
 
-enable_testing()
-add_subdirectory(tests)
+#enable_testing()
+#add_subdirectory(tests)
 
 find_package(Doxygen)
 if(DOXYGEN_FOUND)

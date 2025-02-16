@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "PowerManager.hpp"
+#include "../src/core/PowerManager.hpp"
 
 namespace usb_monitor {
 namespace testing {
