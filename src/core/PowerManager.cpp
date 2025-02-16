@@ -12,7 +12,8 @@ public:
     std::map<const UsbDevice*, PowerStats> deviceStats;
     std::map<const UsbDevice*, QTimer*> monitoringTimers;
     std::mutex statsMutex;
-    
+    PowerManager* q_ptr;
+
     void updateDevicePower(const UsbDevice* device) {
         if (!device || !device->isOpen()) return;
         
@@ -23,57 +24,22 @@ public:
         libusb_device* dev = device->nativeDevice();
         libusb_config_descriptor* config;
         if (libusb_get_active_config_descriptor(dev, &config) == 0) {
-            stats.maxPower = config->maxPower * 2; // maxPower is in 2mA units
+            stats.maxPower = config->MaxPower * 2; // MaxPower is in 2mA units
             
             uint8_t bmAttributes = config->bmAttributes;
             stats.selfPowered = (bmAttributes & 0x40) != 0;
             
             libusb_free_config_descriptor(config);
         }
-        
-        // For supported devices, try to get actual current usage
-        unsigned char buffer[2];
-        int ret = libusb_control_transfer(
-            handle,
-            LIBUSB_ENDPOINT_IN | LIBUSB_REQUEST_TYPE_CLASS | LIBUSB_RECIPIENT_INTERFACE,
-            0xFE, // Get Status request
-            0,
-            0,
-            buffer,
-            sizeof(buffer),
-            1000
-        );
-        
-        if (ret == 2) {
-            stats.currentUsage = (buffer[1] << 8 | buffer[0]) * 2.0; // Convert to mA
-        }
-        
-        // For USB 3.0 devices, try to get more detailed power info
-        if (libusb_get_device_speed(dev) >= LIBUSB_SPEED_SUPER) {
-            unsigned char bos[128];
-            ret = libusb_get_descriptor(
-                handle,
-                LIBUSB_DT_BOS,
-                0,
-                bos,
-                sizeof(bos)
-            );
-            
-            if (ret > 0) {
-                // Parse BOS descriptor for power info
-                // This is a simplified version - real implementation would need
-                // to parse the full BOS descriptor structure
-                stats.voltage = 5.0; // Default USB voltage
-                stats.powerUsage = stats.currentUsage * stats.voltage;
-            }
-        }
-        
+
+        // Store the stats
         {
             std::lock_guard<std::mutex> lock(statsMutex);
             deviceStats[device] = stats;
         }
-        
-        emit powerStatsUpdated(device, stats);
+
+        // Emit the signal through the main class
+        Q_EMIT q_ptr->powerStatsUpdated(device, stats);
     }
 };
 
@@ -81,15 +47,10 @@ PowerManager::PowerManager(libusb_context* context, QObject* parent)
     : QObject(parent)
     , d(std::make_unique<Private>()) {
     d->context = context;
+    d->q_ptr = this;
 }
 
-PowerManager::~PowerManager() {
-    // Clean up monitoring timers
-    for (auto& pair : d->monitoringTimers) {
-        pair.second->stop();
-        delete pair.second;
-    }
-}
+PowerManager::~PowerManager() = default;
 
 void PowerManager::startMonitoring(std::shared_ptr<UsbDevice> device) {
     if (!device) return;

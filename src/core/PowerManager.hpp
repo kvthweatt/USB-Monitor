@@ -1,6 +1,8 @@
 #pragma once
 #include <QObject>
 #include <memory>
+#include <usb-monitor/Types.hpp>
+#include <libusb-1.0/libusb.h>
 
 namespace usb_monitor {
 

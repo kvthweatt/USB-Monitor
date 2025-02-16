@@ -1,7 +1,9 @@
 // src/gui/DeviceTreeWidget.cpp
 #include "DeviceTreeWidget.hpp"
-#include "DeviceManager.hpp"
-#include "UsbDevice.hpp"
+#include "../core/DeviceManager.hpp"
+#include "../core/UsbDevice.hpp"
+#include "../core/PowerManager.hpp"
+#include "../core/BandwidthMonitor.hpp"
 #include <QHeaderView>
 #include <QTimer>
 #include <map>

@@ -1,5 +1,5 @@
 #include "ExportManager.hpp"
-#include "UsbDevice.hpp"
+#include "../core/UsbDevice.hpp"
 #include <QFile>
 #include <QTextStream>
 #include <QJsonDocument>

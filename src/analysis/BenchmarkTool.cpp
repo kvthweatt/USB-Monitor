@@ -1,5 +1,5 @@
 #include "BenchmarkTool.hpp"
-#include "UsbDevice.hpp"
+#include "../core/UsbDevice.hpp"
 #include <QTimer>
 #include <random>
 #include <thread>

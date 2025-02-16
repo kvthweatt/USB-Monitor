@@ -1,11 +1,12 @@
 // src/gui/TopologyView.cpp
 #include "TopologyView.hpp"
-#include "DeviceManager.hpp"
-#include "UsbDevice.hpp"
+#include "../core/DeviceManager.hpp"
+#include "../core/UsbDevice.hpp"
 #include <QGraphicsScene>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsLineItem>
 #include <QGraphicsTextItem>
+#include <QScrollBar>
 #include <QWheelEvent>
 #include <QTimer>
 #include <map>

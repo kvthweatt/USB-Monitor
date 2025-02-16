@@ -1,12 +1,13 @@
 #include "MainWindow.hpp"
-#include "DeviceManager.hpp"
+#include "../core/DeviceManager.hpp"
+#include "../core/UsbDevice.hpp"
 #include "DeviceTreeWidget.hpp"
 #include "TopologyView.hpp"
 #include "SystemTrayIcon.hpp"
-#include "SecurityManager.hpp"
-#include "ProtocolAnalyzer.hpp"
-#include "BenchmarkTool.hpp"
-#include "ConfigManager.hpp"
+#include "../security/SecurityManager.hpp"
+#include "../analysis/ProtocolAnalyzer.hpp"
+#include "../analysis/BenchmarkTool.hpp"
+#include "../utils/ConfigManager.hpp"
 
 #include <QMenuBar>
 #include <QToolBar>

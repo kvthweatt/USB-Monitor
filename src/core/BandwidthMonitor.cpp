@@ -1,5 +1,6 @@
 #include "BandwidthMonitor.hpp"
 #include "UsbDevice.hpp"
+#include <usb-monitor/Constants.hpp>
 #include <QTimer>
 #include <map>
 #include <mutex>
@@ -16,10 +17,13 @@ struct TransferStats {
 };
 
 class BandwidthMonitor::Private {
+	friend class BandwidthMonitor;
+	
 public:
     std::map<const UsbDevice*, TransferStats> deviceStats;
     std::map<const UsbDevice*, QTimer*> monitoringTimers;
     std::mutex statsMutex;
+    BandwidthMonitor* q_ptr;
     
     void updateDeviceBandwidth(const UsbDevice* device) {
         if (!device || !device->isOpen()) return;
@@ -63,7 +67,9 @@ public:
         bwStats.writeSpeed = calculateSpeed(stats.writeHistory);
         bwStats.speedClass = libusb_get_device_speed(dev);
         
-        emit statsUpdated(device, bwStats);
+        if (q_ptr) {
+            Q_EMIT q_ptr->statsUpdated(device, bwStats);
+        }
     }
     
 private:
@@ -172,4 +178,6 @@ void BandwidthMonitor::resetStats(const UsbDevice* device) {
     if (it != d->deviceStats.end()) {
         it->second = TransferStats{};
     }
+}
+
 }

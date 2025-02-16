@@ -1,8 +1,8 @@
 // src/gui/SystemTrayIcon.cpp
 #include "SystemTrayIcon.hpp"
-#include "MainWindow.hpp"
-#include "DeviceManager.hpp"
-#include "UsbDevice.hpp"
+#include "../gui/MainWindow.hpp"
+#include "../core/DeviceManager.hpp"
+#include "../core/UsbDevice.hpp"
 #include <QMenu>
 #include <QAction>
 #include <QApplication>

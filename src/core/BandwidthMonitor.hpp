@@ -1,6 +1,7 @@
 #pragma once
 #include <QObject>
 #include <memory>
+#include "usb-monitor/Types.hpp"
 
 namespace usb_monitor {
 

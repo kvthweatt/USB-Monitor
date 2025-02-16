@@ -23,6 +23,7 @@ find_package(OpenSSL REQUIRED)
 find_package(SQLite3 REQUIRED)
 
 set(SOURCES
+    src/main.cpp
     src/core/DeviceManager.cpp
     src/core/UsbDevice.cpp
     src/core/PowerManager.cpp

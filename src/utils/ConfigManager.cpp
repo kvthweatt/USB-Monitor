@@ -8,6 +8,13 @@
 
 namespace usb_monitor {
 
+template<class... Ts> 
+struct overloaded : Ts... { 
+    using Ts::operator()...; 
+};
+template<class... Ts> 
+overloaded(Ts...) -> overloaded<Ts...>;
+
 class ConfigManager::Private {
 public:
     std::map<std::string, ConfigValue> globalSettings;
@@ -16,11 +23,11 @@ public:
     // Utility functions for JSON conversion
     QJsonValue toJsonValue(const ConfigValue& value) const {
         return std::visit(overloaded{
-            [](bool b) -> QJsonValue { return b; },
-            [](int i) -> QJsonValue { return i; },
-            [](double d) -> QJsonValue { return d; },
-            [](const std::string& s) -> QJsonValue { return QString::fromStdString(s); }
-        }, value);
+	    [](bool b) -> QJsonValue { return b; },
+	    [](int i) -> QJsonValue { return i; },
+	    [](double d) -> QJsonValue { return d; },
+	    [](const std::string& s) -> QJsonValue { return QString::fromStdString(s); }
+	}, value);
     }
     
     ConfigValue fromJsonValue(const QJsonValue& json) const {

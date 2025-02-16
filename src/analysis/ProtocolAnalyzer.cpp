@@ -1,8 +1,9 @@
 // src/analysis/ProtocolAnalyzer.cpp
 #include "ProtocolAnalyzer.hpp"
-#include "UsbDevice.hpp"
+#include "../core/UsbDevice.hpp"
 #include <QTimer>
 #include <deque>
+#include <mutex>
 #include <chrono>
 
 namespace usb_monitor {
@@ -21,6 +22,7 @@ public:
     std::map<const UsbDevice*, QTimer*> monitoringTimers;
     size_t maxHistorySize{1000};
     std::mutex historyMutex;
+    ProtocolAnalyzer* q_ptr;
     
     void recordTransfer(const UsbDevice* device,
                        uint8_t endpointAddress,
@@ -147,7 +149,9 @@ public:
             }
         }
         
-        emit protocolPatternDetected(pattern);
+        if (q_ptr) {
+            emit q_ptr->protocolPatternDetected(pattern);
+        }
     }
 };
 

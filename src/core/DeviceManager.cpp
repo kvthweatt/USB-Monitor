@@ -2,8 +2,10 @@
 #include "UsbDevice.hpp"
 #include "PowerManager.hpp"
 #include "BandwidthMonitor.hpp"
+#include <usb-monitor/Constants.hpp>
 #include <QTimer>
 #include <sstream>
+#include <iomanip>
 #include <map>
 #include <mutex>
 
@@ -46,7 +48,7 @@ DeviceManager::DeviceManager(QObject* parent)
     }
     
     // Create managers
-    d->powerMgr = std::make_unique<PowerManager>(d->context);
+    d->powerMgr = std::make_unique<PowerManager>(d->context, this);
     d->bwMonitor = std::make_unique<BandwidthMonitor>();
     
     // Setup polling timer as fallback
